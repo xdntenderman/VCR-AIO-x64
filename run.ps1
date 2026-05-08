@@ -5,6 +5,9 @@ $tempZip = "$env:TEMP\vcredist_aio.zip"
 $tempFolder = "$env:TEMP\vcredist_extracted"
 
 Write-Host "Downloading Files Please Wait..." -ForegroundColor Cyan
+
+# Enable progress bar untuk download
+$ProgressPreference = 'Continue'
 Invoke-WebRequest -Uri $zipUrl -OutFile $tempZip
 
 Write-Host "Extracting Files..." -ForegroundColor Yellow
