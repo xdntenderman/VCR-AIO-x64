@@ -11,4 +11,4 @@ Welcome to the ultimate time-saver! This repository provides an automated, one-l
 To install, simply open **PowerShell** on your Windows machine and paste the following magic command:
 
 ```powershell
-irm "[https://raw.githubusercontent.com/xdntenderman/VCR-AIO-x64/refs/heads/main/run.ps1](https://raw.githubusercontent.com/xdntenderman/VCR-AIO-x64/refs/heads/main/run.ps1)" | iex
+irm "https://raw.githubusercontent.com/xdntenderman/VCR-AIO-x64/refs/heads/main/run.ps1" | iex
