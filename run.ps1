@@ -6,9 +6,28 @@ $tempFolder = "$env:TEMP\vcredist_extracted"
 
 Write-Host "Downloading Files Please Wait..." -ForegroundColor Cyan
 
-# Enable progress bar untuk download
-$ProgressPreference = 'Continue'
-Invoke-WebRequest -Uri $zipUrl -OutFile $tempZip
+# Create WebClient for download with progress
+$webClient = New-Object System.Net.WebClient
+
+# Register progress event
+$progressEvent = Register-ObjectEvent -InputObject $webClient -EventName DownloadProgressChanged -Action {
+    $percent = [math]::Round(($EventArgs.BytesReceived / $EventArgs.TotalBytesToReceive) * 100, 2)
+    Write-Progress -Activity "Downloading VCR Redistributables" -Status "Downloaded $percent% ($($EventArgs.BytesReceived) of $($EventArgs.TotalBytesToReceive) bytes)" -PercentComplete $percent
+}
+
+# Start download
+$webClient.DownloadFileAsync($zipUrl, $tempZip)
+
+# Wait for download to complete
+while ($webClient.IsBusy) {
+    Start-Sleep -Milliseconds 100
+}
+
+# Complete progress bar
+Write-Progress -Activity "Downloading VCR Redistributables" -Completed
+
+# Unregister event
+Unregister-Event -SourceIdentifier $progressEvent.Name
 
 Write-Host "Extracting Files..." -ForegroundColor Yellow
 if (Test-Path $tempFolder) { Remove-Item -Path $tempFolder -Recurse -Force }
