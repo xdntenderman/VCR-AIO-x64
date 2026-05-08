@@ -1,4 +1,4 @@
-#  VCRedist AIO x64 - One-Line Installer
+#  VCRedist AIO x64 x86 - One-Line Installer
 
 Welcome to the ultimate time-saver! This repository provides an automated, one-line PowerShell command to download and install the **Visual C++ Redistributable Runtimes All-in-One** package. No more clicking through endless "Next" buttons or managing multiple `.exe` files manually.
 
